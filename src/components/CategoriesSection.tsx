@@ -43,8 +43,9 @@ const CategoriesSection = () => {
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
           {categories.map((cat, i) => (
-            <button
+            <Link
               key={cat.id}
+              to={`/?categoria=${cat.slug}`}
               className="group flex flex-col items-center gap-3 p-6 rounded-xl bg-card shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 animate-fade-in-up"
               style={{ animationDelay: `${i * 0.08}s` }}
             >

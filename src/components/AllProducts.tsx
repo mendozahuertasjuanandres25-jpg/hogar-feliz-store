@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import ProductCard from "./ProductCard";
 
@@ -22,6 +23,8 @@ const AllProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const slugParam = searchParams.get("categoria");
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -30,6 +33,25 @@ const AllProducts = () => {
     };
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    if (!categories.length) return;
+    if (!slugParam) {
+      setActiveCategory(null);
+      return;
+    }
+    const match = categories.find((c) => c.slug === slugParam);
+    if (match) {
+      setActiveCategory(match.id);
+      document.getElementById("productos")?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [slugParam, categories]);
+
+  const selectCategory = (id: string | null) => {
+    setActiveCategory(id);
+    const slug = categories.find((c) => c.id === id)?.slug;
+    setSearchParams(slug ? { categoria: slug } : {}, { replace: true });
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -45,8 +67,9 @@ const AllProducts = () => {
     fetchProducts();
   }, [activeCategory]);
 
+
   return (
-    <section className="py-12 md:py-16">
+    <section id="productos" className="py-12 md:py-16 scroll-mt-20">
       <div className="container mx-auto px-4">
         <h2 className="font-display text-3xl font-bold text-foreground mb-6">
           Todos los productos
@@ -55,7 +78,7 @@ const AllProducts = () => {
         {/* Category filter */}
         <div className="flex flex-wrap gap-2 mb-8">
           <button
-            onClick={() => setActiveCategory(null)}
+            onClick={() => selectCategory(null)}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               !activeCategory
                 ? "bg-primary text-primary-foreground"
@@ -67,7 +90,7 @@ const AllProducts = () => {
           {categories.map((cat) => (
             <button
               key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
+              onClick={() => selectCategory(cat.id)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 activeCategory === cat.id
                   ? "bg-primary text-primary-foreground"

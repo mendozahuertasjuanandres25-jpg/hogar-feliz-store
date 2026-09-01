@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import ProductCard from "./ProductCard";
 
@@ -22,6 +23,8 @@ const AllProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const slugParam = searchParams.get("categoria");
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -30,6 +33,25 @@ const AllProducts = () => {
     };
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    if (!categories.length) return;
+    if (!slugParam) {
+      setActiveCategory(null);
+      return;
+    }
+    const match = categories.find((c) => c.slug === slugParam);
+    if (match) {
+      setActiveCategory(match.id);
+      document.getElementById("productos")?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [slugParam, categories]);
+
+  const selectCategory = (id: string | null) => {
+    setActiveCategory(id);
+    const slug = categories.find((c) => c.id === id)?.slug;
+    setSearchParams(slug ? { categoria: slug } : {}, { replace: true });
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -44,6 +66,7 @@ const AllProducts = () => {
     };
     fetchProducts();
   }, [activeCategory]);
+
 
   return (
     <section className="py-12 md:py-16">

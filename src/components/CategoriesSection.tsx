@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Gamepad2, Refrigerator, Sofa, Smartphone, Tablet, Tv } from "lucide-react";
 
@@ -53,7 +54,7 @@ const CategoriesSection = () => {
                 {cat.icon && iconMap[cat.icon] ? iconMap[cat.icon] : <Gamepad2 className="w-7 h-7" />}
               </div>
               <span className="text-sm font-semibold text-foreground">{cat.name}</span>
-            </button>
+            </Link>
           ))}
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Store, Facebook, Instagram, Twitter, Youtube, Mail, Phone, MapPin } from "lucide-react";
 
 const Footer = () => {
@@ -52,9 +53,21 @@ const Footer = () => {
           <div>
             <h4 className="font-display font-bold mb-4">Categorías</h4>
             <ul className="space-y-2.5 text-sm text-card/60">
-              {["Juguetes", "Electrodomésticos", "Muebles", "Celulares", "Tablets", "Televisores"].map((cat) => (
-                <li key={cat}>
-                  <a href="#" className="hover:text-secondary transition-colors">{cat}</a>
+              <li>
+                <Link to="/juguetes" className="hover:text-secondary transition-colors">Juguetes</Link>
+              </li>
+              <li>
+                <Link to="/electronicos" className="hover:text-secondary transition-colors">Dispositivos electrónicos</Link>
+              </li>
+              {[
+                { name: "Electrodomésticos", slug: "electrodomesticos" },
+                { name: "Muebles", slug: "muebles" },
+                { name: "Celulares", slug: "celulares" },
+                { name: "Tablets", slug: "tablets" },
+                { name: "Televisores", slug: "televisores" },
+              ].map((cat) => (
+                <li key={cat.slug}>
+                  <Link to={`/?categoria=${cat.slug}`} className="hover:text-secondary transition-colors">{cat.name}</Link>
                 </li>
               ))}
             </ul>

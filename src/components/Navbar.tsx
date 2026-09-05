@@ -1,4 +1,4 @@
-import { Search, ShoppingCart, Menu, Store, LogIn, LogOut, User as UserIcon, Home } from "lucide-react";
+import { Search, ShoppingCart, Menu, Store, LogIn, LogOut, User as UserIcon, Home, Gamepad2, Smartphone } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -60,6 +60,20 @@ const Navbar = () => {
                       className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors"
                     >
                       <Home className="w-4 h-4" /> Inicio
+                    </Link>
+                    <Link
+                      to="/juguetes"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors"
+                    >
+                      <Gamepad2 className="w-4 h-4" /> Juguetes
+                    </Link>
+                    <Link
+                      to="/electronicos"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors"
+                    >
+                      <Smartphone className="w-4 h-4" /> Dispositivos electrónicos
                     </Link>
                     {user ? (
                       <>

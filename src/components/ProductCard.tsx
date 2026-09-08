@@ -1,6 +1,8 @@
 import { Star, ShoppingCart } from "lucide-react";
+import { useCart } from "@/hooks/useCart";
 
 interface ProductCardProps {
+  id: string;
   name: string;
   price: number;
   originalPrice: number | null;
@@ -9,7 +11,8 @@ interface ProductCardProps {
   categoryName?: string;
 }
 
-const ProductCard = ({ name, price, originalPrice, imageUrl, rating, categoryName }: ProductCardProps) => {
+const ProductCard = ({ id, name, price, originalPrice, imageUrl, rating, categoryName }: ProductCardProps) => {
+  const { addItem } = useCart();
   const discount = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
 
   return (

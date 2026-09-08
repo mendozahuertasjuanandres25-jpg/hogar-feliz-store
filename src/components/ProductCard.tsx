@@ -64,7 +64,10 @@ const ProductCard = ({ id, name, price, originalPrice, imageUrl, rating, categor
         </div>
 
         {/* CTA */}
-        <button className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-all">
+        <button
+          onClick={() => addItem({ id, name, price, image_url: imageUrl })}
+          className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-all"
+        >
           <ShoppingCart className="w-4 h-4" />
           Agregar
         </button>

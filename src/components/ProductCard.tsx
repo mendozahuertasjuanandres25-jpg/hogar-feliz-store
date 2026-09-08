@@ -1,6 +1,8 @@
 import { Star, ShoppingCart } from "lucide-react";
+import { useCart } from "@/hooks/useCart";
 
 interface ProductCardProps {
+  id: string;
   name: string;
   price: number;
   originalPrice: number | null;
@@ -9,7 +11,8 @@ interface ProductCardProps {
   categoryName?: string;
 }
 
-const ProductCard = ({ name, price, originalPrice, imageUrl, rating, categoryName }: ProductCardProps) => {
+const ProductCard = ({ id, name, price, originalPrice, imageUrl, rating, categoryName }: ProductCardProps) => {
+  const { addItem } = useCart();
   const discount = originalPrice ? Math.round(((originalPrice - price) / originalPrice) * 100) : 0;
 
   return (
@@ -61,7 +64,10 @@ const ProductCard = ({ name, price, originalPrice, imageUrl, rating, categoryNam
         </div>
 
         {/* CTA */}
-        <button className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-all">
+        <button
+          onClick={() => addItem({ id, name, price, image_url: imageUrl })}
+          className="mt-3 w-full flex items-center justify-center gap-2 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition-all"
+        >
           <ShoppingCart className="w-4 h-4" />
           Agregar
         </button>

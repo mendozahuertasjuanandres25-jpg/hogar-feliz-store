@@ -1,4 +1,5 @@
-import { Search, ShoppingCart, Menu, Store, LogIn, LogOut, User as UserIcon, Home, Gamepad2, Smartphone } from "lucide-react";
+import { Search, Menu, Store, LogIn, LogOut, User as UserIcon, Home, Gamepad2, Smartphone } from "lucide-react";
+import CartSheet from "@/components/CartSheet";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -160,12 +161,7 @@ const Navbar = () => {
                 </Link>
               </Button>
             )}
-            <button className="relative p-2 rounded-lg hover:bg-muted transition-colors" aria-label="Carrito">
-              <ShoppingCart className="w-5 h-5 text-foreground" />
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-secondary text-secondary-foreground text-[10px] font-bold flex items-center justify-center">
-                0
-              </span>
-            </button>
+            <CartSheet />
           </div>
         </div>
       </div>

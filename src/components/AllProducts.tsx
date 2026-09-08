@@ -106,6 +106,7 @@ const AllProducts = () => {
           {products.map((product, i) => (
             <div key={product.id} className="animate-fade-in-up" style={{ animationDelay: `${i * 0.03}s` }}>
               <ProductCard
+                id={product.id}
                 name={product.name}
                 price={product.price}
                 originalPrice={product.original_price}

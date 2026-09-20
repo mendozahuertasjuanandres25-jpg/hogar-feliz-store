@@ -1,9 +1,10 @@
-import { Search, Menu, Store, LogIn, LogOut, User as UserIcon, Home, Gamepad2, Smartphone } from "lucide-react";
+import { Search, Menu, Store, LogIn, LogOut, User as UserIcon, Home, Gamepad2, Smartphone, MessageCircle, LayoutDashboard } from "lucide-react";
 import CartSheet from "@/components/CartSheet";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { useIsAdmin } from "@/hooks/useIsAdmin";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 
@@ -17,6 +18,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const { user, signOut } = useAuth();
+  const { isAdmin } = useIsAdmin();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -76,6 +78,22 @@ const Navbar = () => {
                     >
                       <Smartphone className="w-4 h-4" /> Dispositivos electrónicos
                     </Link>
+                    <Link
+                      to="/contacto"
+                      onClick={() => setMenuOpen(false)}
+                      className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-foreground hover:bg-muted transition-colors"
+                    >
+                      <MessageCircle className="w-4 h-4" /> Contacto
+                    </Link>
+                    {isAdmin && (
+                      <Link
+                        to="/admin"
+                        onClick={() => setMenuOpen(false)}
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-primary hover:bg-muted transition-colors"
+                      >
+                        <LayoutDashboard className="w-4 h-4" /> Panel de pedidos
+                      </Link>
+                    )}
                     {user ? (
                       <>
                         <Link

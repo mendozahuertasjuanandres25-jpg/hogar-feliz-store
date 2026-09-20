@@ -47,13 +47,23 @@ const CategoriesSection = () => {
             <Link
               key={cat.id}
               to={`/?categoria=${cat.slug}`}
-              className="group flex flex-col items-center gap-3 p-6 rounded-xl bg-card shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 animate-fade-in-up"
+              className="group rounded-xl overflow-hidden bg-card shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 animate-fade-in-up"
               style={{ animationDelay: `${i * 0.08}s` }}
             >
-              <div className="w-14 h-14 rounded-xl bg-primary/10 text-primary flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                {cat.icon && iconMap[cat.icon] ? iconMap[cat.icon] : <Gamepad2 className="w-7 h-7" />}
+              <div className="aspect-[4-3] relative aspect-[4/3] overflow-hidden bg-muted">
+                <img
+                  src={cat.image_url || "/placeholder.svg"}
+                  alt={cat.name}
+                  loading="lazy"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
               </div>
-              <span className="text-sm font-semibold text-foreground">{cat.name}</span>
+              <div className="flex items-center gap-2 p-3">
+                <span className="text-primary">
+                  {cat.icon && iconMap[cat.icon] ? iconMap[cat.icon] : <Gamepad2 className="w-7 h-7" />}
+                </span>
+                <span className="text-sm font-semibold text-foreground">{cat.name}</span>
+              </div>
             </Link>
           ))}
         </div>

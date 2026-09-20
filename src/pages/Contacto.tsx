@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import Navbar from "@/components/Navbar";
@@ -62,13 +61,6 @@ const Contacto = () => {
 
   return (
     <div className="min-h-screen bg-background flex flex-col">
-      <Helmet>
-        <title>Contacto | MegaMarket</title>
-        <meta
-          name="description"
-          content="Escribinos por el formulario de contacto o por WhatsApp: consultas de productos, envíos, pagos y postventa en MegaMarket."
-        />
-      </Helmet>
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-12">
         <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2">Contacto</h1>

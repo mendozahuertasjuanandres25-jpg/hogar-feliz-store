@@ -78,7 +78,7 @@ const Checkout = () => {
     }
     clear();
     toast.success("¡Compra confirmada! Te contactaremos para el envío.");
-    navigate("/perfil");
+    navigate(`/pedido/${order.id}`);
   };
 
   return (
